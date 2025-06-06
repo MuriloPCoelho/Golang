@@ -15,7 +15,7 @@ OPERAÇÕES
 
 func main() {
 	var opInput int
-	var n1,n2, result float64
+	var n1, n2, result float64
 
 	fmt.Println("Digite dois números")
 	fmt.Scanln(&n1, &n2)
@@ -25,14 +25,14 @@ func main() {
 	fmt.Scanln(&opInput)
 
 	switch opInput {
-		case 1:
-			result = n1+n2
-		case 2:
-			result = n1-n2
-		case 3:
-			result = n1*n2
-		case 4:
-			result = n1/n2
+	case 1:
+		result = n1 + n2
+	case 2:
+		result = n1 - n2
+	case 3:
+		result = n1 * n2
+	case 4:
+		result = n1 / n2
 	}
 
 	fmt.Printf("\n--RESULTADO: %f-- ", result)
