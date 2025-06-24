@@ -10,12 +10,11 @@ func main() {
 	for {
 		res, err := iniciarMonitoramento()
 
-		// fmt.Println("Response: ", res.Status, "| Error: ", err)
 
 		if res.StatusCode == 200 {
 			fmt.Println("Response: ", res.Status)
 		} else {
-			fmt.Println("Request Error: ", res.Status)
+			fmt.Println("Request Error: ", err, res.Status)
 		}
 
 	}
