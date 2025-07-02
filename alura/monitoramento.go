@@ -1,15 +1,18 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
 func main() {
 	iniciarMonitoramento()
-	lerSitesDoArquivo()
+
 }
 
 const monitoramento = 3
@@ -17,11 +20,7 @@ const delay = 5
 
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
-	sites := []string{
-		"https://ufcspa.edu.br/",
-		"https://www.alura.com.br/",
-		"https://qi.edu.br/faqi/",
-	}
+	sites := lerSitesDoArquivo()
 
 	for i := 0; i < monitoramento; i++ {
 		for i, site := range sites {
@@ -32,28 +31,48 @@ func iniciarMonitoramento() {
 		time.Sleep(delay * time.Second)
 		fmt.Println("")
 	}
-	fmt.Println("")
+	fmt.Println("_______________Fim do monitoramento_______________")
 }
 
 func testaSite(url string) {
 	res, err := http.Get(url)
 
-	if res.StatusCode == 200 {
-		fmt.Println("Response: ", res.Status)
-	} else {
+	if err != nil {
 		fmt.Println("Request Error: ", err)
 	}
+
+	fmt.Println("Response: ", res.Status)
+
 }
 
 func lerSitesDoArquivo() []string {
 	var sites []string
 
-	arquivo, err := os.Open("alura/sites.txt")
+	arquivo, err := os.Open("alura/sites.txt") //retorna o ponteiro de um onde o arquivo está na memória
+	// arquivo, err := os.ReadFile("alura/sites.txt") //retorna um array de bytes
 
 	if err != nil {
 		fmt.Println("Ocorreu um erro: ", err)
 	}
 
-	fmt.Println(arquivo)
+	leitor := bufio.NewReader(arquivo)
+
+	for {
+		linha, err := leitor.ReadString('\n')
+		linha = strings.TrimSpace(linha)
+
+		sites = append(sites, linha)
+
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			fmt.Println("Ocorreu um erro: ", err)
+		}
+	}
+	
+	arquivo.Close()
+
+	fmt.Println(sites)
+
 	return sites
 }

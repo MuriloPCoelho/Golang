@@ -1,4 +1,3 @@
-https://ufcspa.edu.br/"
-https://www.alura.com.br/
-https://qi.edu.br/faqi/"
-https://httpstat.us/random/200,201,400-404,500-504
+https://ufcspa.edu.br
+https://www.alura.com.br
+https://qi.edu.br/faqi
