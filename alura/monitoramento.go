@@ -41,6 +41,13 @@ func testaSite(url string) {
 		fmt.Println("Request Error: ", err)
 	}
 
+
+	if res.StatusCode == 200 {
+		registraLog(url, true)
+	} else {
+		registraLog(url, false)
+	}
+
 	fmt.Println("Response: ", res.Status)
 
 }
@@ -76,3 +83,15 @@ func lerSitesDoArquivo() []string {
 
 	return sites
 }
+
+func registraLog(site string, status bool) {
+	arquivo, err := os.OpenFile("alura/log.txt", os.O_RDWR | os.O_CREATE, 0666);
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro ao tentar registrar log", err)
+	} else {
+		fmt.Println(arquivo)
+	} 
+
+	arquivo.Close()
+} 
