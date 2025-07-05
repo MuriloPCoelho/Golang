@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -32,6 +33,7 @@ func iniciarMonitoramento() {
 		fmt.Println("")
 	}
 	fmt.Println("_______________Fim do monitoramento_______________")
+	imprimeLogs()
 }
 
 func testaSite(url string) {
@@ -85,7 +87,7 @@ func lerSitesDoArquivo() []string {
 }
 
 func registraLog(site string, status bool) {
-	arquivo, err := os.OpenFile("alura/log.txt", os.O_RDWR | os.O_CREATE, 0666);
+	arquivo, err := os.OpenFile("alura/logs.txt", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666);
 
 	if err != nil {
 		fmt.Println("Ocorreu um erro ao tentar registrar log", err)
@@ -93,5 +95,17 @@ func registraLog(site string, status bool) {
 		fmt.Println(arquivo)
 	} 
 
+	arquivo.WriteString(time.Now().Format("02/01/2006 - 15:04:05 ") + site + " - online: " + strconv.FormatBool(status) + "\n")
+
 	arquivo.Close()
 } 
+
+func imprimeLogs() {
+	arquivo, err := os.ReadFile("./alura/logs.txt")
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro ao imprimir os logs: ", err)
+	} 
+
+	fmt.Println(string(arquivo))
+}
