@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 type ContaCorrente struct {
@@ -12,15 +11,22 @@ type ContaCorrente struct {
 	saldo         float64
 }
 
-func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
-	podeSacar := valorDoSaque <= c.saldo
-
-	if podeSacar {
+func (c *ContaCorrente) Sacar(valorDoSaque float64) {
+	if valorDoSaque <= c.saldo {
 		c.saldo -= valorDoSaque
-		return "Saque realizado com sucesso. Saldo atual: " + strconv.FormatFloat(c.saldo, 'f', 2, 64)
+		fmt.Printf("Saque realizado com sucesso. O saldo atual é de: %.2f\n", c.saldo)
+	} else {
+		fmt.Println("Saldo indisponível")
 	}
-	return "Saldo insuficiente"
+}
 
+func (c *ContaCorrente) Depositar(valorDeposito float64) {
+	if valorDeposito > 0 {
+		c.saldo += valorDeposito
+		fmt.Printf("Deposito realizado com sucesso. O saldo atual é de: %.2f\n", c.saldo)
+	} else {
+		fmt.Println("Valor de deposito inválido")
+	}
 }
 
 func main() {
@@ -34,5 +40,7 @@ func main() {
 
 	fmt.Println(&cliente1 == &cliente2)
 	fmt.Println(cliente1 == cliente2)
-	fmt.Println(cliente1.Sacar(300))
+	cliente1.Sacar(200)
+	cliente1.Depositar(-500)
+	fmt.Println(cliente1)
 }
