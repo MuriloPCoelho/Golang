@@ -1,20 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type ContaCorrente struct {
-	titular string
+	titular       string
 	numeroAgencia int
-	numeroConta int
-	saldo float64
+	numeroConta   int
+	saldo         float64
 }
 
 func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
 	podeSacar := valorDoSaque <= c.saldo
 
 	if podeSacar {
-		c.saldo = 
+		c.saldo -= valorDoSaque
+		return "Saque realizado com sucesso. Saldo atual: " + strconv.FormatFloat(c.saldo, 'f', 2, 64)
 	}
+	return "Saldo insuficiente"
+
 }
 
 func main() {
@@ -26,7 +32,7 @@ func main() {
 	// cliente2.titular = "Cris"
 	// cliente2.saldo = 500
 
-
 	fmt.Println(&cliente1 == &cliente2)
 	fmt.Println(cliente1 == cliente2)
+	fmt.Println(cliente1.Sacar(300))
 }
