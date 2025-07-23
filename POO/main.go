@@ -7,9 +7,11 @@ import (
 )
 
 func main() {
-	cliente1 := contas.ContaCorrente{Titular: clientes.Titular{Nome: "Murilo", CPF: "1231231112", Profissao: "Analista Juridico"}, NumeroAgencia: 531, NumeroConta: 642332, Saldo: 245.32}
+	cliente1 := contas.ContaCorrente{Titular: clientes.Titular{Nome: "Murilo", CPF: "1231231112", Profissao: "Analista Juridico"}, NumeroAgencia: 531, NumeroConta: 642332}
+	cliente1.Depositar(245.32)
 	clienteJairo := clientes.Titular{Nome: "Jairo", CPF: "1231231112", Profissao: "Politico"}
-	contaJairo := contas.ContaCorrente{Titular: clienteJairo, NumeroAgencia: 531, NumeroConta: 642332, Saldo: 245.32}
+	contaJairo := contas.ContaCorrente{Titular: clienteJairo, NumeroAgencia: 531, NumeroConta: 642332}
+	contaJairo.Depositar(245.32)
 
 	fmt.Println(&cliente1 == &contaJairo)
 	fmt.Println(cliente1 == contaJairo)
