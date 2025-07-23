@@ -28,3 +28,7 @@ func (c *ContaPoupanca) Depositar(valorDeposito float64) {
 		fmt.Println("Valor de deposito inválido")
 	}
 }
+
+func (c *ContaPoupanca) GetSaldo() float64 {
+	return c.saldo
+}
