@@ -32,3 +32,12 @@ func (c *ContaPoupanca) Depositar(valorDeposito float64) {
 func (c *ContaPoupanca) GetSaldo() float64 {
 	return c.saldo
 }
+
+func (c *ContaPoupanca) PagarBoletoContaCorrente(valorBoleto float64) {
+	if c.saldo > valorBoleto {
+		c.saldo -= valorBoleto
+		fmt.Println("Boleto pago com sucesso")
+	} else {
+		fmt.Println("Saldo insuficiente")
+	}
+}
