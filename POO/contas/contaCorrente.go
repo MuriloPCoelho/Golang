@@ -6,9 +6,9 @@ import (
 )
 
 type ContaCorrente struct {
-	Titular                   clientes.Titular
+	Titular                    clientes.Titular
 	NumeroAgencia, NumeroConta int
-	saldo                     float64
+	saldo                      float64
 }
 
 func (c *ContaCorrente) Sacar(valorDoSaque float64) {
@@ -41,4 +41,13 @@ func (c *ContaCorrente) Transferir(valorTransferencia float64, contaDestino *Con
 
 func (c *ContaCorrente) GetSaldo() float64 {
 	return c.saldo
+}
+
+func (c *ContaCorrente) PagarBoletoContaCorrente(valorBoleto float64) {
+	if c.saldo > valorBoleto {
+		c.saldo -= valorBoleto
+		fmt.Println("Boleto pago com sucesso")
+	} else {
+		fmt.Println("Saldo insuficiente")
+	}
 }
