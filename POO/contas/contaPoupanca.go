@@ -35,7 +35,11 @@ func (c *ContaPoupanca) GetSaldo() float64 {
 
 func (c *ContaPoupanca) PagarBoletoContaCorrente(valorBoleto float64) {
 	if c.saldo > valorBoleto {
-		c.saldo -= valorBoleto
+		if valorBoleto <= 0 {
+			fmt.Println("Valor de boleto inválido")
+		} else {
+			c.saldo -= valorBoleto
+		}
 		fmt.Println("Boleto pago com sucesso")
 	} else {
 		fmt.Println("Saldo insuficiente")
